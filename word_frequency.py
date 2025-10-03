@@ -48,7 +48,7 @@ unique_words = []
 frequencies = []
 
 for word in words:
-    if word in list1:
+    if word in unique_words:
         i = unique_words.index(word)
         frequencies[i] += 1
     else:
