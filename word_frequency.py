@@ -29,40 +29,31 @@ def is_sentence(text):
 
     return True
 
-user_input = input("Enter a sentence: ")
+user_sentence = input("Enter a sentence: ")
 
 while (is_sentence(user_sentence) == False):
     print("This does not meet the criteria for a sentence.")
-user_sentence = input("Enter a sentence: ")
+    user_input = input("Enter a sentence: ")
 
-# ---- Prompt + validate sentence ----
-sentence = input("Enter a sentence: ").strip()
-while not (len(sentence) > 0 and sentence[0].isupper() and sentence[-1] in ".?!" and any(c.isalpha() for c in sentence)):
-    print("Please enter a valid sentence (start with a capital and end with . ? or !).")
-    sentence = input("Enter a sentence: ").strip()
+# makes them lowercase
+sentence = user_sentence.lower()
+# replaces punctuation with an empty line
+sentence = sentence.replace(".", "")
+sentence = sentence.replace("!", "")
+sentence = sentence.replace("?", "")
+sentence = sentence.replace(",", "")
+words = sentence.split()
 
-# ---- Normalize and split ----
-text = sentence.lower()
-for ch in ".?!,;:":
-    text = text.replace(ch, " ")
-tokens = text.split()
+unique_words = []
+frequencies = []
 
-# ---- Count using two parallel lists (no dictionaries) ----
-words = []
-counts = []
-
-for w in tokens:
-    if w in words:
-        i = words.index(w)
-        counts[i] = counts[i] + 1
+for word in words:
+    if word in list1:
+        i = unique_words.index(word)
+        frequencies[i] += 1
     else:
-        words.append(w)
-        counts.append(1)
-
-# ---- Print results (encounter order) ----
-i = 0
-while i < len(words):
-    print(words[i] + ": " + str(counts[i]))
-    i = i + 1
-
-
+        unique_words.append(word)
+        frequencies.append(1)
+        
+for i in range(len(unique_words)):
+    print(unique_words[i] + ":", frequencies[i])
